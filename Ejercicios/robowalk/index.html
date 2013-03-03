@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Animando a Robowalk</title>
+    <style>
+    /** { border: 1px solid red;}*/
+    </style>
+</head>
+
+<body id="body" onload="setup();">
+
+<script type="text/javascript">
+
+    var canvas = null;
+    var context = null;
+    var frameRate = 1000/30; // Represents how often we'd like to actually call the animate function.
+    var frame = 0; // Varriable that we're going to use to represent what the current frame.
+    var assets = ['http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk00.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk01.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk02.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk03.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk04.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk05.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk06.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk07.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk08.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk09.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk10.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk11.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk12.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk13.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk14.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk15.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk16.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk17.png',
+                  'http://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk18.png'
+                 ];
+    var frames = [];
+
+    var onImageLoad = function(){
+        console.log("IMAGE DOWNLOADED!!!");
+    };
+
+    var setup = function() {
+        body = document.getElementById('body');
+        canvas = document.createElement('canvas');
+
+        context = canvas.getContext('2d');
+
+        canvas.width = 100;
+        canvas.height = 100;
+
+        body.appendChild(canvas);
+
+        // Load each image URL from the assets array into the frames array
+        // in the correct order.
+        // Afterwards, call setInterval to run at a framerate of 30 frames
+        // per second, calling the animate function each time.
+        // YOUR CODE HERE
+        for( var i = 0; i < assets.length; i++ )
+        {
+
+            frames.push(new Image());
+            frames[i].onload = onImageLoad;
+            frames[i].src = assets[i];
+            // console.log(frames[i].src  + " /// " + assets[i]);
+        }
+
+        setInterval(animate, frameRate);
+    };
+
+    var animate = function(){
+        // Draw each frame in order, looping back around to the
+        // beginning of the animation once you reach the end.
+        // Draw each frame at a position of (0,0) on the canvas.
+
+        // Try your code with this call to clearRect commented out
+        // and uncommented to see what happens!
+        //
+
+        // YOUR CODE HERE
+        // context.clearRect(0,0,canvas.width, canvas.height);
+        context.drawImage(frames[frame], 192, 192);
+        frame = (frame + 1) % frames.length;
+        // What we do is increment the frame counter and that modulo it by the frame's length.
+
+    };
+
+    // We'll call your setup function in our test code, so
+    // don't call it in your code.
+    // setup();
+
+</script>
+
+</body>
+</html>
